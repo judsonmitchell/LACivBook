@@ -288,12 +288,12 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #51c728;
+  color: #FFFF39;
   text-decoration: none;
 }
 a:hover,
 a:focus {
-  color:#1d480e;
+  color:#FF6464;
   text-decoration: underline;
 }
 a:focus {
@@ -4463,8 +4463,8 @@ a.thumbnail.active {
   color: #e6e6e6;
 }
 .alert-info {
-  background-color: #3200ff;
-  border-color: #2400b7;
+  background-color: #5777C0;
+  border-color: #082568;
   color: #ffffff;
 }
 .alert-info hr {
