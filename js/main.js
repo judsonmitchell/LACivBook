@@ -2,24 +2,12 @@
 var State,
     db,
     History = window.History,
-    appName = 'LACivProBook',
-    dbName = 'CivProLaws',
+    appName = 'LACivBook',
+    dbName = 'CivLaws',
     latestDbVersion = '1.1', //Change this on update
     lawSections = [          //Corresponds to West thumb index;
-    {'name':'Code of Civil Procedure', 'start': 'CCP' },
-    {'name':'Title 1', 'start': 'RS 000001' },
-    {'name':'Title 9', 'start': 'RS 000009' },
-    {'name':'Title 12', 'start': 'RS 000012' },
-    {'name':'Title 13', 'start': 'RS 000013' },
-    {'name':'Title 20', 'start': 'RS 000020' },
-    {'name':'Title 22', 'start': 'RS 000022' },
-    {'name':'Title 23', 'start': 'RS 000023' },
-    {'name':'Title 35', 'start': 'RS 000035' },
-    {'name':'Title 39', 'start': 'RS 000039' },
-    {'name':'Title 40', 'start': 'RS 000040' },
     {'name':'Civil Code', 'start': 'CC' },
-    {'name':'Code of Evidence', 'start': 'CE' },
-    {'name':'Childrens Code', 'start': 'CHC' }
+    {'name':'Civil Code Ancillaries', 'start': 'RS 000009' }
 ],
 //Change content depending on state
 updateContent = function(State,callback) {
@@ -368,5 +356,5 @@ init = function () {
 
 };
 
-document.addEventListener('deviceready', init, false);
-//$(document).ready(function () {init();});
+//document.addEventListener('deviceready', init, false);
+$(document).ready(function () {init();});
