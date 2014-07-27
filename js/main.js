@@ -169,7 +169,8 @@ updateContent = function(State,callback) {
 setCurrentPosition = function () {
     var currentView = window.location.toString().queryStringToJSON();
     var scroll = $(document).scrollTop();
-    History.replaceState({type: currentView.view, id: currentView.target, pos: scroll}, currentView.target, '?target=' + currentView.target + '&view=' + currentView.view);
+    History.replaceState({type: currentView.view, id: currentView.target, ender: currentView.end, pos: scroll},
+    currentView.target, '?target=' + currentView.target + '&end=' + currentView.end + '&view=' + currentView.view);
 },
 
 updateFavoritesList = function () {
