@@ -6,12 +6,17 @@ var State,
     dbName = 'CivLaws',
     latestDbVersion = '1.1', //Change this on update
     lawSections = [          //Corresponds to West thumb index;
-    {'name':'Civil Code', 'start': 'CC' },
-    {'name':'Civil Code Ancillaries', 'start': 'RS 000009' }
+    {'name':'Preliminary Title', 'start': 'CC 000001', 'end': 'CC 000014' },
+    {'name':'Book I: Of Persons', 'start': 'CC 000024', 'end': 'CC 000447' },
+    {'name':'Book II: Things and the Different Modifications of Ownership', 'start': 'CC 000448', 'end': 'CC 000869' },
+    {'name':'Book III: Of the Different Modes of Acquiring the Ownership of Things', 'start': 'CC 000870', 'end': 'CC 003514' },
+    {'name':'Book IV: Conflict of Laws', 'start': 'CC 003615', 'end': 'CC 003556' },
+    {'name':'Civil Code Ancillaries', 'start': 'RS 000009', 'end': 'RS 000010' }
 ],
 //Change content depending on state
 updateContent = function(State,callback) {
     var target = State.data.id,
+        end = State.data.ender,
         view = State.data.type,
         pos = State.data.pos,
         items,
@@ -40,7 +45,7 @@ updateContent = function(State,callback) {
     case 'list':
         items = ' <div class="list-group display-rows">';
         db.readTransaction(function (tx){
-            tx.executeSql('SELECT id, title, description FROM laws WHERE sortcode LIKE ?;',[target + ' %'],function (tx,res){
+            tx.executeSql('SELECT id, title, description FROM laws WHERE sortcode >=  ? and sortcode <= ?;',[target , end],function (tx,res){
                 var rows = res.rows;
                 for (var i = 0, l = rows.length; i < l; i ++) {
                     items += '<a class="law-link list-group-item" href="#" data-id="' + rows.item(i).id +
@@ -151,7 +156,7 @@ updateContent = function(State,callback) {
         var menu = ' <div class="list-group">';
         for (var int = 0, l = lawSections.length; int < l; int ++) {
             var v = lawSections[int];
-            menu += '<a class="nav-link list-group-item list-group-item " data-id="' + v.start + '" href="#">' +
+            menu += '<a class="nav-link list-group-item list-group-item " data-id="' + v.start + '" data-end="' + v.end + '"href="#">' +
             '<i class="fa fa-angle-right pull-right"></i>  ' + v.name + '</a>';
         }
         menu += '</div>';
@@ -203,7 +208,7 @@ init = function () {
             $('.panel').show();
             State = History.getState();
             var t = State.url.queryStringToJSON();
-            History.pushState({type: t.view, id: t.target}, $('title').text(), State.urlPath);
+            History.pushState({type: t.view, id: t.target, end: t.end}, $('title').text(), State.urlPath);
             updateContent(History.getState(),function () {
                 updateFavoritesList();
             });
@@ -273,8 +278,9 @@ init = function () {
     $('.main').on('click', 'a.nav-link', function (event) {
         event.preventDefault();
         var target = $(this).attr('data-id');
+        var end = $(this).attr('data-end');
         var scroll = $(document).scrollTop();
-        History.pushState({type: 'list', id: target}, target, '?target=' + target + '&view=list');
+        History.pushState({type: 'list', id: target, ender: end}, target, '?target=' + target + '&end=' + end +  '&view=list');
     });
 
     $('.main').on('click', 'a.law-link', function (event) {
