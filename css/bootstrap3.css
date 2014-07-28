@@ -288,7 +288,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #FFFF39;
+  color: #FF0000;
   text-decoration: none;
 }
 a:hover,
@@ -3048,7 +3048,7 @@ input[type="button"].btn-block {
 .dropdown-menu > li > a:focus {
   text-decoration: none;
   color: #ffffff;
-  background-color: #51c728;
+  background-color: #ff0000;
 }
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,

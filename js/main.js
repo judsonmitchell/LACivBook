@@ -1,4 +1,4 @@
-//CrimBook with sqlite backend
+//CivBook with sqlite backend
 var State,
     db,
     History = window.History,
@@ -363,5 +363,5 @@ init = function () {
 
 };
 
-//document.addEventListener('deviceready', init, false);
-$(document).ready(function () {init();});
+document.addEventListener('deviceready', init, false);
+//$(document).ready(function () {init();});
