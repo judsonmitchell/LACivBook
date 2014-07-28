@@ -203,7 +203,7 @@ updateFavoritesList = function () {
 init = function () {
     //Add function for gh-pages only
     if (!Modernizr.websqldatabase){
-        $('.loading').html('Sorry, this app won\'t work in your browser.  Please try using Google Chrome or Safari');
+        $('.loading').html('Sorry, this app won\'t work in your browser.  Please try using Google Chrome.');
         return;
     }
     //End gh-pages
