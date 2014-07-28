@@ -4,9 +4,7 @@ LACivBook
 LACivBook aims to replace West's big and expensive handbook of Louisiana 
 civil laws with a free, digital alternative.
 
-**This branch** contains a Web SQL version of the CivBook for usage with PhoneGap applications.  Because of the
-large size  of the data, Web Sql is the only storage option available.  The desktop branch (the **gh-pages** branch)  uses
-an in-memory datastore ([jlinq](http://hugoware.net/Projects/jlinq)).  A desktop browser demo can be found [here](http://judsonmitchell.github.io/LACivBook/).
+**This branch** is optimized for PhoneGap applications.  A desktop browser demo (from the gh-pages branch) can be found [here](http://judsonmitchell.github.io/LACivBook/).
 
 LACivBook was created as a part of the [Technology and Legal Innovation Clinic](http://loyolalawtech.org) of [Loyola College of Law, New Orleans](http://law.loyno.edu).
 
