@@ -201,6 +201,12 @@ updateFavoritesList = function () {
 },
 
 init = function () {
+    //Add function for gh-pages only
+    if (!Modernizr.websqldatabase){
+        $('.loading').html('Sorry, this app won\'t work in your browser.  Please try using Google Chrome or Safari');
+        return;
+    }
+    //End gh-pages
     $.ajax({url: 'data/data.json', dataType:'json', beforeSend: function () { $('.panel').hide(); }})
     .done(function(data){
         var lawData = data,
@@ -363,5 +369,5 @@ init = function () {
 
 };
 
-document.addEventListener('deviceready', init, false);
-//$(document).ready(function () {init();});
+//document.addEventListener('deviceready', init, false);
+$(document).ready(function () {init();});
