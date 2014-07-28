@@ -10,7 +10,7 @@ var State,
     {'name':'Book I: Of Persons', 'start': 'CC 000024', 'end': 'CC 000447' },
     {'name':'Book II: Things and the Different Modifications of Ownership', 'start': 'CC 000448', 'end': 'CC 000869' },
     {'name':'Book III: Of the Different Modes of Acquiring the Ownership of Things', 'start': 'CC 000870', 'end': 'CC 003514' },
-    {'name':'Book IV: Conflict of Laws', 'start': 'CC 003615', 'end': 'CC 003556' },
+    {'name':'Book IV: Conflict of Laws', 'start': 'CC 003515', 'end': 'CC 003556' },
     {'name':'Civil Code Ancillaries', 'start': 'RS 000009', 'end': 'RS 000010' }
 ],
 //Change content depending on state
