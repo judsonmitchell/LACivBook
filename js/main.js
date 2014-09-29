@@ -56,6 +56,7 @@ updateContent = function(State,callback) {
                 items += '</div>';
                 $('.panel').html(items);
                 $(document).scrollTop(pos);
+                pageDepth = 1;
             },function (tx, err){
                 $('.alert').html('Error: ' + err.message).show();
             }), function onReadError(tx,err){
@@ -396,5 +397,5 @@ init = function () {
     });
 };
 
-//document.addEventListener('deviceready', init, false);
-$(document).ready(function () {init();});
+document.addEventListener('deviceready', init, false);
+//$(document).ready(function () {init();});
