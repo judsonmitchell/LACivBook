@@ -236,6 +236,8 @@ init = function () {
             });
         },
         onFail = function (tx,err) {
+            console.log(tx);
+            console.log(err);
             $('.alert').html('DB Error: ' + err.message).show();
         },
         onTransact = function (tx) {
@@ -300,8 +302,10 @@ init = function () {
     $('.main').on('click', 'a.nav-link', function (event) {
         event.preventDefault();
         var target = $(this).attr('data-id');
+        var end = $(this).attr('data-end');
         var scroll = $(document).scrollTop();
-        History.pushState({type: 'list', id: target}, target, '?target=' + target + '&view=list');
+        History.pushState({type: 'list', id: target, ender: end}, target, '?target=' + target + '&end=' + end +  '&view=list');
+
     });
 
     $('.main').on('click', 'a.law-link', function (event) {
@@ -392,5 +396,5 @@ init = function () {
     });
 };
 
-document.addEventListener('deviceready', init, false);
-//$(document).ready(function () {init();});
+//document.addEventListener('deviceready', init, false);
+$(document).ready(function () {init();});
