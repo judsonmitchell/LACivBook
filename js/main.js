@@ -5,6 +5,7 @@ var State,
     appName = 'LACivBook',
     dbName = 'CivLaws',
     latestDbVersion = '1.1', //Change this on update
+    pageDepth = 1,
     lawSections = [          //Corresponds to West thumb index;
     {'name':'Preliminary Title', 'start': 'CC 000001', 'end': 'CC 000014' },
     {'name':'Book I: Of Persons', 'start': 'CC 000024', 'end': 'CC 000447' },
@@ -39,6 +40,7 @@ updateContent = function(State,callback) {
     } else {
         $('#app-name').text(appName);
         $('.navbar-brand i').hide();
+        $(document).scrollTop(0); //Always scroll to top on main page
     }
 
     switch (view) {
@@ -200,6 +202,25 @@ updateFavoritesList = function () {
     }
 },
 
+getQueryVariable = function (variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) === variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    console.log('Query variable %s not found', variable);
+},
+
+browse = function (target, direction) {
+
+    direction === 'forward' ?  target++ : target--;
+    History.pushState({type: 'law', id: target}, target, '?target=' + target + '&view=law');
+    pageDepth++;
+},
+
 init = function () {
     $.ajax({url: 'data/data.json', dataType:'json', beforeSend: function () { $('.panel').hide(); }})
     .done(function(data){
@@ -279,9 +300,8 @@ init = function () {
     $('.main').on('click', 'a.nav-link', function (event) {
         event.preventDefault();
         var target = $(this).attr('data-id');
-        var end = $(this).attr('data-end');
         var scroll = $(document).scrollTop();
-        History.pushState({type: 'list', id: target, ender: end}, target, '?target=' + target + '&end=' + end +  '&view=list');
+        History.pushState({type: 'list', id: target}, target, '?target=' + target + '&view=list');
     });
 
     $('.main').on('click', 'a.law-link', function (event) {
@@ -340,18 +360,17 @@ init = function () {
 
     $('.navbar-headnav').on('click', 'a.go-home', function (event) {
         event.preventDefault();
-        var scroll = '0';
-        //History.pushState({type: 'home', id: null, pos: scroll}, 'Home', '/');
-        History.back()
+        //Use window.history here to avoid jquery.history plugin
+        window.history.go(Math.abs(pageDepth) * -1);
     });
 
     $('.main').swipe({
         swipe:function(event, direction, distance, duration, fingerCount) {
             if (direction === 'right'){
-                History.back();
+                browse(getQueryVariable('target'),'backward');
             }
             if (direction === 'left'){
-                History.go(1);
+                browse(getQueryVariable('target'),'forward');
             }
         },
         allowPageScroll: 'vertical'
@@ -361,6 +380,16 @@ init = function () {
         FastClick.attach(document.body);
     });
 
+    if (localStorage.getItem('lacivbook-notice-2.6.0') === null){
+        $('#update-info').load('CHANGES');
+        $('#update-info').show();
+    }
+
+    $('body').on('click', '.update-dismiss', function (event) {
+        event.preventDefault();
+        $('#update-info').remove();
+        localStorage.setItem('lacivbook-notice-2.6.0', true);
+    });
 };
 
 document.addEventListener('deviceready', init, false);
