@@ -4,7 +4,7 @@ var State,
     History = window.History,
     appName = 'LACivBook',
     dbName = 'CivLaws',
-    latestDbVersion = '1.1', //Change this on update
+    latestDbVersion = '2.0', //Change this on update
     pageDepth = 1,
     lawSections = [          //Corresponds to West thumb index;
     {'name':'Preliminary Title', 'start': 'CC 000001', 'end': 'CC 000014' },
@@ -391,7 +391,7 @@ init = function () {
         FastClick.attach(document.body);
     });
 
-    if (localStorage.getItem('lacivbook-notice-2.6.0') === null){
+    if (localStorage.getItem('lacivbook-notice-2.7.1') === null){
         $('#update-info').load('CHANGES');
         $('#update-info').show();
     }
@@ -399,7 +399,7 @@ init = function () {
     $('body').on('click', '.update-dismiss', function (event) {
         event.preventDefault();
         $('#update-info').remove();
-        localStorage.setItem('lacivbook-notice-2.6.0', true);
+        localStorage.setItem('lacivbook-notice-2.7.1', true);
     });
 };
 
