@@ -4,7 +4,7 @@ var State,
     History = window.History,
     appName = 'LACivBook',
     dbName = 'CivLaws',
-    latestDbVersion = '2.1', //Change this on update
+    latestDbVersion = '2.9', //Change this on update
     lawSections = [          //Corresponds to West thumb index;
     {'name':'Preliminary Title', 'start': 'CC 000001', 'end': 'CC 000014' },
     {'name':'Book I: Of Persons', 'start': 'CC 000024', 'end': 'CC 000447' },
