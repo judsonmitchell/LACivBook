@@ -21,7 +21,7 @@
     <gap:plugin name="org.apache.cordova.device" />
     <plugin name="cordova-plugin-inappbrowser" />
     -->
-
+    <plugin name="cordova-plugin-inappbrowser" spec="~1.7.1" />
     <preference name="permissions" value="none" />
     <preference name="phonegap-version" value="cli-6.3.0" />         
     <preference name="android-targetSdkVersion" value="14" />
