@@ -1,4 +1,4 @@
-//CivBook with sqlite backend
+//CivBook with jlinq DB 
 var myData,
     State,
     History = window.History,
@@ -15,6 +15,7 @@ var myData,
 //Change content depending on state
 updateContent = function(State,callback) {
     var target = State.data.id,
+        end = State.data.ender
         view = State.data.type,
         pos = State.data.pos,
         items,
@@ -43,7 +44,7 @@ updateContent = function(State,callback) {
     switch (view) {
     case 'list':
         items = ' <div class="list-group display-rows">';
-        laws = jlinq.from(myData).starts('sortcode', target + ' ').select();
+        laws = jlinq.from(myData).starts('sortcode', target + ' ').ends('sortcode',ender)select();
         for (var i = 0, l = laws.length; i < l; i ++) {
             items += '<a class="law-link list-group-item" href="#" data-id="' + laws[i].id + '"><span class="text-muted">' + 
             laws[i].title + '</span>&nbsp;' + laws[i].description + '</a>';
@@ -123,8 +124,8 @@ updateContent = function(State,callback) {
         var menu = ' <div class="list-group">';
         for (var int = 0, l = lawSections.length; int < l; int ++) {
             var v = lawSections[int];
-            menu += '<a class="nav-link list-group-item list-group-item " data-id="' + v.start + '" href="#">' +
-            '<i class="fa fa-angle-right pull-right"></i>  ' + v.name + '</a>';
+            menu += '<a class="nav-link list-group-item list-group-item " data-id="' + v.start + '" data-end="' + v.end + '"href="#">' +
+                        '<i class="fa fa-angle-right pull-right"></i>  ' + v.name + '</a>';
         }
         menu += '</div>';
         $('.panel').html(menu);
@@ -136,7 +137,8 @@ updateContent = function(State,callback) {
 setCurrentPosition = function () {
     var currentView = window.location.toString().queryStringToJSON();
     var scroll = $(document).scrollTop();
-    History.replaceState({type: currentView.view, id: currentView.target, pos: scroll}, currentView.target, '?target=' + currentView.target + '&view=' + currentView.view);
+    History.replaceState({type: currentView.view, id: currentView.target, ender: currentView.end, pos: scroll},
+        currentView.target, '?target=' + currentView.target + '&end=' + currentView.end + '&view=' + currentView.view);
 },
 
 updateFavoritesList = function () {
@@ -213,7 +215,7 @@ init = function () {
         myData = data;
         State = History.getState();
         var t = State.url.queryStringToJSON();
-        History.pushState({type: t.view, id: t.target}, $('title').text(), State.urlPath);
+        History.pushState({type: t.view, id: t.target, end: t.end}, $('title').text(), State.urlPath);
         updateContent(History.getState(),function () {
             updateFavoritesList();
         });
@@ -236,8 +238,9 @@ init = function () {
     $('.main').on('click', 'a.nav-link', function (event) {
         event.preventDefault();
         var target = $(this).attr('data-id');
+        var end = $(this).attr('data-end');
         var scroll = $(document).scrollTop();
-        History.pushState({type: 'list', id: target}, target, '?target=' + target + '&view=list');
+        History.pushState({type: 'list', id: target, ender: end}, target, '?target=' + target + '&end=' + end +  '&view=list');
     });
 
     $('.main').on('click', 'a.law-link', function (event) {
