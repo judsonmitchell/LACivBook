@@ -15,7 +15,7 @@ var myData,
 //Change content depending on state
 updateContent = function(State,callback) {
     var target = State.data.id,
-        end = State.data.ender
+        end = State.data.ender,
         view = State.data.type,
         pos = State.data.pos,
         items,
@@ -44,7 +44,7 @@ updateContent = function(State,callback) {
     switch (view) {
     case 'list':
         items = ' <div class="list-group display-rows">';
-        laws = jlinq.from(myData).starts('sortcode', target + ' ').ends('sortcode',ender)select();
+        laws = jlinq.from(myData).betweenEquals('sortcode',target, end).select();
         for (var i = 0, l = laws.length; i < l; i ++) {
             items += '<a class="law-link list-group-item" href="#" data-id="' + laws[i].id + '"><span class="text-muted">' + 
             laws[i].title + '</span>&nbsp;' + laws[i].description + '</a>';
@@ -316,7 +316,7 @@ init = function () {
         allowPageScroll: 'vertical'
     });
 
-    if (localStorage.getItem('lacrimbook-notice-3.0.0') === null){
+    if (localStorage.getItem('lacivbook-notice-3.0.0') === null){
         $('#update-info').load('CHANGES');
         $('#update-info').show();
     }

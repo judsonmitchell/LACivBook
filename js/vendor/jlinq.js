@@ -1023,7 +1023,7 @@ var jl;
             method:function(low, high) {
                 return this.compare({
                     array:function() { return this.value.length >= low && this.value.length <= high; },
-                    string:function() { return this.value.length >= low && this.value.length <= high; },
+                    string:function() { return this.value >= low && this.value <= high; }, // RJM removed .length here
                     other:function() { return this.value >= low && this.value <= high; }
                 });
             }},
