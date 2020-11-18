@@ -109,7 +109,7 @@ updateContent = function(State,callback) {
         if (localStorage.length > 0) {
             for (i = 0; i < localStorage.length; i++) {
                 var key = localStorage.key(i);
-                if (!isNaN(key)){
+                if (parseInt(key)){ //Avoid "labook notice keys
                     laws = jlinq.from(myData).equals('id', key).select();
                     items += '<a class="law-link list-group-item" href="#" data-id="' + laws[0].id + '">' + laws[0].description +
                     ' ' + laws[0].title + '</a>';
@@ -123,6 +123,7 @@ updateContent = function(State,callback) {
             $(document).scrollTop(pos);
         }
 
+        $('.panel').html(items);
         break;
     default:
         var menu = ' <div class="list-group">';
@@ -154,7 +155,7 @@ updateFavoritesList = function () {
 
         if (localStorage.length > 4) {
             for (i = 0; i < 5; i++) {
-                if (!isNaN(localStorage.key(i))){
+                if (parseInt(localStorage.key(i))){
                     key = localStorage.key(i);
                     value = localStorage.getItem(key);
                     favList += '<li><a class="fav-link" href="#" data-id="' + key + '">' + value + '</a></li>';
@@ -164,7 +165,7 @@ updateFavoritesList = function () {
         }
         else {
             for (i = 0; i < localStorage.length; i++) {
-                if (!isNaN(localStorage.key(i))){
+                if (parseInt(localStorage.key(i))){
                     key = localStorage.key(i);
                     value = localStorage.getItem(key);
                     favList += '<li><a class="fav-link" href="#" data-id="' + key + '">' + value + '</a></li>';
